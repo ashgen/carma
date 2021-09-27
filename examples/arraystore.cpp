@@ -5,34 +5,29 @@
  * you only return the underlying arrays when requested.
  *
  * Additional functionality exists for setting data directly
- * from a arma::Mat or retrieving the matrix.
+ * from a arma::vec or retrieving the matrix.
  */
 
 class ExampleClass {
     private:
-        carma::ArrayStore<arma::Mat<double>> _x;
-        carma::ArrayStore<arma::Mat<double>> _y;
+        arma::vec _x;
+        arma::vec _y;
 
     public:
-        ExampleClass(py::array_t<double> & x, py::array_t<double> & y) :
-        // steal the array, mark it mutable and store it as an
-        // Armadillo array
-        _x{carma::ArrayStore<arma::Mat<double>>(x, true)},
-        // copy the array, mark it read-only and store it as an
-        // Armadillo array
-        _y{carma::ArrayStore<arma::Mat<double>>(y, false)} {}
+        ExampleClass(arma::vec & x,arma::vec & y) :
+        _x(x),_y(y) {}
 
-        py::array_t<double> member_func() {
+        arma::vec member_func() {
             // normallly you would something useful here
-            _x.mat += _y.mat;
+            _x += _y;
             // return mutable view off arma matrix
-            return _x.get_view(true);
+            return _x;
         }
 };
 
 void bind_exampleclass(py::module &m) {
     py::class_<ExampleClass>(m, "ExampleClass")
-        .def(py::init<py::array_t<double> &, py::array_t<double> &>(), R"pbdoc(
+        .def(py::init<arma::vec &,arma::vec &>(), R"pbdoc(
             Initialise ExampleClass.
 
             Parameters

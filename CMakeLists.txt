@@ -34,7 +34,7 @@ ENDIF ()
 OPTION(CARMA_DEV_MODE "Enable additional definitions for development" OFF)
 OPTION(CARMA_DEV_DEBUG_MODE "Turn on all debugging definitions" OFF)
 OPTION(CARMA_BUILD_TESTS "Build tests for carma" OFF)
-OPTION(CARMA_BUILD_EXAMPLES "Build examples for carma" OFF)
+OPTION(CARMA_BUILD_EXAMPLES "Build examples for carma" ON)
 
 # collect user settable options
 INCLUDE(${PROJECT_SOURCE_DIR}/carma_config.cmake)

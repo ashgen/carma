@@ -1,5 +1,3 @@
-// NOTE THIS IS THE DEFAULT CONFIGURATION
-// Please see the documentation for details: https://carma.readthedocs.io/en/latest/configuration.html
 #ifndef INCLUDE_CARMA_BITS_CONFIG_H_
 #define INCLUDE_CARMA_BITS_CONFIG_H_
 // CARMA Configuration

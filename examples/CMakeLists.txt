@@ -13,7 +13,7 @@ pybind11_add_module(${MODNAME}
         manual_conversion.cpp
         automatic_conversion.cpp
 )
-TARGET_LINK_LIBRARIES(${MODNAME} PUBLIC carma)
+TARGET_LINK_LIBRARIES(${MODNAME} PUBLIC carma mkl_rt)
 
 TARGET_INCLUDE_DIRECTORIES(${MODNAME}
     PUBLIC
