@@ -81,8 +81,8 @@ TARGET_INCLUDE_DIRECTORIES(carma
 TARGET_LINK_LIBRARIES(carma
     INTERFACE
         armadillo::armadillo
-        Python3::NumPy
-        Python3::Module
+        Python::NumPy
+        Python::Module
         pybind11::pybind11
 )
 
@@ -177,11 +177,11 @@ ELSE()
     # ##############################################################################
     #                                REQUIREMENTS                                  #
     # ##############################################################################
-    FIND_PACKAGE(Python3 COMPONENTS Interpreter Development NumPy REQUIRED)
+    FIND_PACKAGE(Python COMPONENTS Interpreter Development NumPy REQUIRED)
 
     # Needed to ensure the same Python executable is found by Pybind11
     IF (NOT DEFINED PYTHON_EXECUTABLE)
-        SET(PYTHON_EXECUTABLE ${Python3_EXECUTABLE})
+        SET(PYTHON_EXECUTABLE ${Python_EXECUTABLE})
     ENDIF ()
 
     # create armadillo and or pybind11 target if not defined
