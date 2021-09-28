@@ -1,43 +1,26 @@
 #include "arraystore.h"
+#include "../../bsplines/bsplines.hpp"
 
-/* This is an example of a class where the data is stored
- * in C++. An example use-cae would be a regression where
- * you only return the underlying arrays when requested.
- *
- * Additional functionality exists for setting data directly
- * from a arma::vec or retrieving the matrix.
- */
 
-class ExampleClass {
-    private:
-        arma::vec _x;
-        arma::vec _y;
-
+class bspline :public bspline_basis{
+    
     public:
-        ExampleClass(arma::vec & x,arma::vec & y) :
-        _x(x),_y(y) {}
+        bspline(arma::vec & x,int degree) :
+        bspline_basis(arma::conv_to<std::vector<double>>::from(x),degree) {}
 
-        arma::vec member_func() {
-            // normallly you would something useful here
-            _x += _y;
-            // return mutable view off arma matrix
-            return _x;
+        arma::mat basis(const arma::vec test){
+           return basis_matrix(test); 
         }
 };
 
 void bind_exampleclass(py::module &m) {
-    py::class_<ExampleClass>(m, "ExampleClass")
-        .def(py::init<arma::vec &,arma::vec &>(), R"pbdoc(
-            Initialise ExampleClass.
-
-            Parameters
-            ----------
-            arr1: np.ndarray
-                array to be stored in armadillo matrix
-            arr2: np.ndarray
-                array to be stored in armadillo matrix
+    py::class_<bspline>(m, "bspline")
+        .def(py::init<arma::vec &,int >(), R"pbdoc(
+            Initialise bspline Example class.
+            arr1:knots 
+            arr2:degree
         )pbdoc")
-        .def("member_func", &ExampleClass::member_func, R"pbdoc(
-            Compute ....
+        .def("basis", &bspline::basis, R"pbdoc(
+            Compute basis matrix
         )pbdoc");
 }
